@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clan ＥＱＵＩＰＯ—７</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        gaming: ['Orbitron', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes rgbGlow {
+            0% { color: #ff2a6d; text-shadow: 0 0 35px rgba(255, 42, 109, 0.9), 0 0 70px rgba(255, 42, 109, 0.5); }
+            33% { color: #05d9e8; text-shadow: 0 0 35px rgba(5, 217, 232, 0.9), 0 0 70px rgba(5, 217, 232, 0.5); }
+            66% { color: #ff007f; text-shadow: 0 0 35px rgba(255, 0, 127, 0.9), 0 0 70px rgba(255, 0, 127, 0.5); }
+            100% { color: #ff2a6d; text-shadow: 0 0 35px rgba(255, 42, 109, 0.9), 0 0 70px rgba(255, 42, 109, 0.5); }
+        }
+        .rgb-text {
+            animation: rgbGlow 6s infinite ease-in-out;
+        }
+
+        @keyframes borderRgb {
+            0% { border-color: rgba(255, 42, 109, 0.8); box-shadow: 0 0 50px rgba(255, 42, 109, 0.3), inset 0 0 30px rgba(255, 42, 109, 0.15); }
+            33% { border-color: rgba(5, 217, 232, 0.8); box-shadow: 0 0 50px rgba(5, 217, 232, 0.3), inset 0 0 30px rgba(5, 217, 232, 0.15); }
+            66% { border-color: rgba(255, 0, 127, 0.8); box-shadow: 0 0 50px rgba(255, 0, 127, 0.3), inset 0 0 30px rgba(255, 0, 127, 0.15); }
+            100% { border-color: rgba(255, 42, 109, 0.8); box-shadow: 0 0 50px rgba(255, 42, 109, 0.3), inset 0 0 30px rgba(255, 42, 109, 0.15); }
+        }
+        .rgb-border {
+            animation: borderRgb 6s infinite ease-in-out;
+        }
+
+        @keyframes floatingOrb {
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+            50% { transform: translateY(-40px) scale(1.25) rotate(180deg); }
+        }
+        .floating-orb-1 { animation: floatingOrb 8s infinite ease-in-out; }
+        .floating-orb-2 { animation: floatingOrb 12s infinite ease-in-out reverse; }
+        
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(14, 14, 26, 0.94) 0%, rgba(6, 6, 14, 0.99) 100%);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+        
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(24, 24, 42, 0.85) 0%, rgba(10, 10, 20, 0.94) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cyber-card:hover {
+            border-color: rgba(5, 217, 232, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 45px -10px rgba(5, 217, 232, 0.25);
+        }
+
+        /* Hacker RGB Matrix Canvas Background */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.28;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#020207] text-slate-100 flex flex-col justify-between relative selection:bg-pink-500 selection:text-white overflow-x-hidden font-sans">
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-pink-600/15 rounded-full blur-[180px] floating-orb-1"></div>
+        <div class="absolute bottom-1/3 left-1/3 -translate-x-1/2 w-[45rem] h-[45rem] bg-cyan-600/15 rounded-full blur-[180px] floating-orb-2"></div>
+    </div>
+
+    <main class="relative z-10 max-w-lg mx-auto w-full px-4 py-8 sm:py-16 my-auto">
+        
+        <div class="glass-panel border-2 rounded-[3rem] p-6 sm:p-10 shadow-2xl rgb-border transition-all duration-500 relative overflow-hidden">
+            
+            <!-- Top Neon Accent Bar -->
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500"></div>
+
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-zinc-900/90 rounded-full text-xs font-semibold tracking-widest text-pink-400 mb-5 border border-zinc-800 shadow-inner">
+                    <i class="fa-solid fa-gamepad text-pink-500 animate-pulse"></i>
+                    <span>BIENVENIDOS</span>
+                </div>
+                
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight mb-4 leading-snug">
+                    @todos bienvenidos al clan del
+                    <!-- Styled Clan Button -->
+                    <a href="https://drive.google.com/file/d/1DfraHCQRGPrvc9ICFK3vPJkkjuB_Nj3C/view" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center justify-center space-x-3 px-6 py-3.5 rounded-2xl bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-700/80 hover:border-cyan-500/80 transition-all shadow-xl group cursor-pointer w-full max-w-xs mx-auto cyber-card" title="Ver archivo oficial del Clan">
+                        <i class="fa-solid fa-shield-halved text-cyan-400 text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="rgb-text font-gaming font-black text-xl sm:text-2xl tracking-wider">ＥＱＵＩＰＯ—７</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-cyan-400 transition-colors"></i>
+                    </a>
+                </h1>
+                
+                <div class="cyber-card p-4 sm:p-5 rounded-2xl mt-5 border border-zinc-800/80 shadow-xl">
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-medium">
+                        Agradecemos estés con nosotros en esta gran familia competitiva y recuerda cumplir con las normas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- 1. TikTok Button -->
+                <a href="https://www.tiktok.com/@yeison_ae?_r=1&_t=ZP-9A7jv22cnao" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-5 rounded-2xl bg-black/90 hover:bg-black text-white font-bold tracking-wide flex items-center justify-between border border-zinc-800 hover:border-pink-500/60 transition-all shadow-lg group cyber-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform border border-pink-500/30 shadow-inner">
+                            <i class="fa-brands fa-tiktok text-pink-400 text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-[11px] text-slate-400 block font-normal tracking-wide">RED SOCIAL OFICIAL</span>
+                            <span class="text-sm sm:text-base font-bold text-white tracking-wide">Seguir en Tik tok al ＥＱＵＩＰＯ—７</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-pink-400 transition-colors"></i>
+                </a>
+
+                <!-- 2. YouTube Button -->
+                <a href="https://www.youtube.com/@yeison_ae" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-5 rounded-2xl bg-black/90 hover:bg-black text-white font-bold tracking-wide flex items-center justify-between border border-zinc-800 hover:border-red-500/60 transition-all shadow-lg group cyber-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition-transform border border-red-500/30 shadow-inner">
+                            <i class="fa-brands fa-youtube text-red-500 text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-[11px] text-slate-400 block font-normal tracking-wide">CANAL OFICIAL</span>
+                            <span class="text-sm sm:text-base font-bold text-white tracking-wide">YouTube del ＥＱＵＩＰＯ—７</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-red-400 transition-colors"></i>
+                </a>
+
+                <!-- 3. Rules Button (RGB) -->
+                <button onclick="openRulesModal()" class="w-full py-4 px-5 rounded-2xl bg-zinc-900/90 hover:bg-zinc-900 font-bold tracking-wide flex items-center justify-between border border-zinc-800 hover:border-cyan-500/60 transition-all shadow-lg group cursor-pointer cyber-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition-transform border border-cyan-500/30 shadow-inner">
+                            <i class="fa-solid fa-scroll text-cyan-400 text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-[11px] text-slate-400 block font-normal tracking-wide">NORMATIVA INTERNA</span>
+                            <span class="text-sm sm:text-base rgb-text font-gaming font-black tracking-wide">REGLAS DEL CLAN</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2.5">
+                        <span id="rulesStatusBadge" class="text-[11px] px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-medium border border-amber-500/30 shadow-inner">Pendiente leer</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-cyan-400 transition-colors"></i>
+                    </div>
+                </button>
+
+                <!-- 4. Accept All Button (Locked initially) -->
+                <button id="readyBtn" onclick="handleReadyAction()" disabled class="w-full py-4 px-5 rounded-2xl bg-zinc-900/60 text-zinc-500 font-bold font-gaming tracking-wide transition-all duration-300 flex items-center justify-between border border-zinc-800/80 cursor-not-allowed shadow-inner group">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-zinc-900 flex items-center justify-center border border-zinc-800" id="readyIconContainer">
+                            <i class="fa-solid fa-lock text-base text-zinc-500" id="btnIcon"></i>
+                        </div>
+                        <div class="text-left">
+                            <span id="btnText" class="text-xs sm:text-sm block font-bold tracking-wider">ACEPTO TODO (BLOQUEADO)</span>
+                            <span id="btnSubText" class="text-[11px] text-zinc-500 font-normal">Entra a las reglas y regresa para desbloquear</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-lock text-xs text-zinc-600" id="btnChevron"></i>
+                </button>
+
+            </div>
+
+        </div>
+    </main>
+
+    <div id="rulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
+        <div id="modalContent" class="glass-panel border-2 rounded-[2.8rem] max-w-lg w-full p-6 sm:p-8 shadow-2xl rgb-border transform scale-95 transition-all duration-300 max-h-[92vh] overflow-y-auto relative">
+            
+            <div class="flex items-center justify-between pb-4 mb-6 border-b border-zinc-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500/20 to-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30 shadow-inner">
+                        <i class="fa-solid fa-shield-halved text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Código de Honor</span>
+                        <h3 class="text-base sm:text-lg font-black font-gaming rgb-text tracking-wide">
+                            REGLAS DEL CLAN ＥＱＵＩＰＯ—７
+                        </h3>
+                    </div>
+                </div>
+                <button onclick="closeRulesModal()" class="w-10 h-10 rounded-full bg-zinc-800/80 hover:bg-zinc-700 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer border border-zinc-700/50 shadow-md">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3.5 text-slate-200 text-sm sm:text-base font-medium">
+                
+                <div class="flex items-start space-x-3.5 p-4 cyber-card rounded-2xl border border-zinc-800 hover:border-pink-500/40">
+                    <span class="text-pink-500 font-bold text-lg mt-0.5">•</span>
+                    <p><strong class="text-white font-gaming tracking-wide text-xs sm:text-sm block mb-1">NO SER GROSEROS Y SER AMIGABLE</strong> <span class="text-slate-300 text-xs sm:text-sm font-normal">Mantener respeto absoluto con todos los compañeros y rivales en cualquier sala o partida.</span></p>
+                </div>
+                
+                <div class="flex items-start space-x-3.5 p-4 cyber-card rounded-2xl border border-zinc-800 hover:border-cyan-500/40">
+                    <span class="text-cyan-400 font-bold text-lg mt-0.5">•</span>
+                    <p><strong class="text-white font-gaming tracking-wide text-xs sm:text-sm block mb-1">SER COMPETITIVO EN PVP Y MÁS</strong> <span class="text-slate-300 text-xs sm:text-sm font-normal">Dar siempre el máximo rendimiento en las salas, duelos y eventos competitivos del clan.</span></p>
+                </div>
+                
+                <div class="flex items-start space-x-3.5 p-4 cyber-card rounded-2xl border border-zinc-800 hover:border-purple-500/40">
+                    <span class="text-purple-400 font-bold text-lg mt-0.5">•</span>
+                    <p><strong class="text-white font-gaming tracking-wide text-xs sm:text-sm block mb-1">ACUMULAR APROXIMADAMENTE ENTRE 500-1000 PUNTOS DE HONOR DEL CLAN POR SEMANA</strong> <span class="text-slate-300 text-xs sm:text-sm font-normal">Contribuir activamente al desarrollo y nivel del clan semanalmente.</span></p>
+                </div>
+                
+                <div class="flex items-start space-x-3.5 p-4 cyber-card rounded-2xl border border-zinc-800 hover:border-pink-500/40">
+                    <span class="text-pink-500 font-bold text-lg mt-0.5">•</span>
+                    <p><strong class="text-white font-gaming tracking-wide text-xs sm:text-sm block mb-1">ACUMULAR ALMENOS 50 PUNTOS EN GUERRA DE CLASES (NO ES OBLIGATORIO)</strong> <span class="text-slate-300 text-xs sm:text-sm font-normal">Apoyar en las guerras de clases cuando sea posible para destacar juntos.</span></p>
+                </div>
+                
+                <div class="flex items-start space-x-3.5 p-4 cyber-card rounded-2xl border border-zinc-800 hover:border-cyan-500/40">
+                    <span class="text-cyan-400 font-bold text-lg mt-0.5">•</span>
+                    <p><strong class="text-white font-gaming tracking-wide text-xs sm:text-sm block mb-1">JUGAR CON LOS INTEGRANTES NUEVOS/VIEJOS DEL CLAN</strong> <span class="text-slate-300 text-xs sm:text-sm font-normal">Integrar a todos los miembros y fomentar la unión como una verdadera hermandad.</span></p>
+                </div>
+                
+            </div>
+
+            <div class="mt-6 pt-5 border-t border-zinc-800">
+                <button onclick="closeRulesModal()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-600 hover:opacity-95 text-white font-bold font-gaming cursor-pointer shadow-xl tracking-wide flex items-center justify-center space-x-3 transition-all transform hover:scale-[1.01]">
+                    <i class="fa-solid fa-arrow-left text-lg"></i>
+                    <span>VOLVER</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="registerModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
+        <div id="registerContent" class="glass-panel border-2 rounded-[2.8rem] max-w-md w-full p-6 sm:p-8 shadow-2xl rgb-border transform scale-95 transition-all duration-300 relative">
+            
+            <div class="flex items-center justify-between pb-4 mb-6 border-b border-zinc-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 shadow-inner">
+                        <i class="fa-solid fa-user-pen text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Registro Oficial</span>
+                        <h3 class="text-base sm:text-lg font-black font-gaming text-white tracking-wide">
+                            DATOS DEL JUGADOR
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Container connected to Formspree -->
+            <form id="formContainer" onsubmit="submitRegistration(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nombre del Jugador</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="playerName" name="username" required placeholder="Ej. ＥＱＵＩＰＯ—７ • Pro" class="w-full py-3.5 pl-11 pr-4 bg-zinc-900/95 border border-zinc-700/80 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors font-medium text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">ID del Jugador</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500">
+                            <i class="fa-solid fa-id-badge"></i>
+                        </span>
+                        <input type="number" id="playerId" name="player_id" required placeholder="Ej. 1234567890" class="w-full py-3.5 pl-11 pr-4 bg-zinc-900/95 border border-zinc-700/80 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors font-medium text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:opacity-95 text-white font-bold font-gaming text-sm tracking-wider cursor-pointer shadow-xl transition-all transform hover:scale-[1.01] flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>ENVIAR</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Loading State (Hidden by default) -->
+            <div id="loadingContainer" class="hidden py-10 text-center space-y-5">
+                <div class="relative w-20 h-20 mx-auto">
+                    <div class="absolute inset-0 rounded-full border-4 border-emerald-500/20 animate-pulse"></div>
+                    <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-emerald-400 text-2xl font-gaming">
+                        <i class="fa-solid fa-spinner animate-spin"></i>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white font-gaming tracking-wide mb-1">PROCESANDO DATOS</h4>
+                    <p class="text-slate-400 text-xs">Registrando tu ingreso al clan ＥＱＵＩＰＯ—７...</p>
+                </div>
+            </div>
+
+            <!-- Success State (Hidden by default) -->
+            <div id="successContainer" class="hidden py-8 text-center space-y-5">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl border border-emerald-500/40 shadow-inner animate-bounce">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold text-white font-gaming tracking-wide mb-2 rgb-text">¡ENVIADO CON ÉXITO!</h4>
+                    <p class="text-slate-300 text-sm max-w-xs mx-auto">Tus datos han sido registrados correctamente en el sistema del clan.</p>
+                </div>
+                <div class="pt-3">
+                    <button onclick="finishProcess()" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:opacity-95 text-white font-bold font-gaming text-sm tracking-wider cursor-pointer shadow-xl transition-all transform hover:scale-[1.01] flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <span>TERMINAR</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Message Box Notification -->
+    <div id="messageBox" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel border border-zinc-700/80 rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center transform scale-95 transition-all duration-300" id="msgBoxContent">
+            <div id="msgIcon" class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-2xl shadow-inner border border-amber-500/30">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h4 id="msgTitle" class="text-lg font-bold text-white mb-2 font-gaming">Atención</h4>
+            <p id="msgText" class="text-slate-300 text-sm mb-6 leading-relaxed">Notificación del sistema.</p>
+            <button onclick="closeMessageBox()" class="w-full py-3.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold font-gaming text-xs tracking-wider cursor-pointer border border-zinc-600/50 shadow-md transition-colors">
+                CONTINUAR
+            </button>
+        </div>
+    </div>
+
+    <footer class="relative z-10 text-center py-6 text-xs text-slate-500 font-medium tracking-wider">
+        © ＥＱＵＩＰＯ—７ • Todos los derechos reservados
+    </footer>
+
+    <script>
+        // Matrix Hacker RGB Waterfall Background
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const characters = '01ＥＱＵＩＰＯ７XYZAΞΨΩ#$_-<>*+';
+        const fontSize = 16;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        const colors = ['#ff2a6d', '#05d9e8', '#ff007f', '#a855f7', '#38bdf8'];
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(2, 2, 7, 0.12)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = 'bold ' + fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 45);
+
+        let hasReadRules = false;
+        let isAlreadySubmitted = false;
+
+        // Open Rules Modal
+        function openRulesModal() {
+            const modal = document.getElementById('rulesModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+
+        // Close Rules Modal and unlock Accept All button
+        function closeRulesModal() {
+            const modal = document.getElementById('rulesModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            if (!hasReadRules) {
+                hasReadRules = true;
+                unlockAcceptButton();
+            }
+        }
+
+        // Unlock the Accept All button after reading rules
+        function unlockAcceptButton() {
+            const btn = document.getElementById('readyBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSubText = document.getElementById('btnSubText');
+            const btnIcon = document.getElementById('btnIcon');
+            const readyIconContainer = document.getElementById('readyIconContainer');
+            const btnChevron = document.getElementById('btnChevron');
+            const rulesBadge = document.getElementById('rulesStatusBadge');
+
+            rulesBadge.className = "text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-medium border border-emerald-500/30 shadow-inner";
+            rulesBadge.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Leídas';
+
+            btn.disabled = false;
+            btn.classList.remove('bg-zinc-900/60', 'text-zinc-500', 'cursor-not-allowed', 'border-zinc-800/80');
+            btn.classList.add('bg-gradient-to-r', 'from-emerald-600', 'via-teal-600', 'to-cyan-600', 'text-white', 'cursor-pointer', 'shadow-2xl', 'border-emerald-500/60', 'hover:opacity-95');
+            
+            readyIconContainer.className = "w-12 h-12 rounded-xl bg-emerald-950/80 flex items-center justify-center text-emerald-400 border border-emerald-500/40 shadow-inner";
+            btnIcon.className = "fa-solid fa-check text-base text-emerald-400";
+            btnChevron.className = "fa-solid fa-arrow-right text-xs text-white";
+            
+            btnText.innerText = 'ACEPTO TODO';
+            btnSubText.innerText = 'Haz clic para registrar tus datos en el clan';
+        }
+
+        // Handle Accept All button click -> open Registration Modal if rules read and not submitted
+        function handleReadyAction() {
+            if (!hasReadRules) {
+                showNotification("Atención Requerida", "Debes abrir las reglas del clan y regresar primero.", "warning");
+                return;
+            }
+            if (isAlreadySubmitted) {
+                showNotification("Ya Registrado", "Ya has enviado tus datos anteriormente. ¡Nos vemos en el clan!", "success");
+                return;
+            }
+            openRegisterModal();
+        }
+
+        // Open Register Modal
+        function openRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            const content = document.getElementById('registerContent');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+
+            // Reset form view
+            document.getElementById('formContainer').classList.remove('hidden');
+            document.getElementById('loadingContainer').classList.add('hidden');
+            document.getElementById('successContainer').classList.add('hidden');
+            document.getElementById('playerName').value = '';
+            document.getElementById('playerId').value = '';
+        }
+
+        // Submit Registration via Formspree with 3 seconds loading state and permanent lock
+        function submitRegistration(event) {
+            event.preventDefault();
+            if (isAlreadySubmitted) return;
+
+            const name = document.getElementById('playerName').value.trim();
+            const id = document.getElementById('playerId').value.trim();
+
+            if (!name || !id) {
+                showNotification("Campos Incompletos", "Por favor ingresa tu nombre y tu ID numérico de jugador.", "warning");
+                return;
+            }
+
+            // Mark as submitted so it cannot be submitted again
+            isAlreadySubmitted = true;
+
+            // Update Accept Button state permanently to "Enviado / Registrado"
+            const btn = document.getElementById('readyBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSubText = document.getElementById('btnSubText');
+            const btnIcon = document.getElementById('btnIcon');
+            const readyIconContainer = document.getElementById('readyIconContainer');
+            const btnChevron = document.getElementById('btnChevron');
+
+            btn.disabled = true;
+            btn.className = "w-full py-4 px-5 rounded-2xl bg-zinc-900/80 text-emerald-400 font-bold font-gaming tracking-wide flex items-center justify-between border border-emerald-500/40 shadow-inner cursor-not-allowed";
+            readyIconContainer.className = "w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30 shadow-inner";
+            btnIcon.className = "fa-solid fa-check-double text-base text-emerald-400";
+            btnChevron.className = "fa-solid fa-lock text-xs text-zinc-500";
+            btnText.innerText = 'REGISTRO COMPLETADO';
+            btnSubText.innerText = 'Ya has enviado tus datos al clan';
+
+            // Hide form, show loading
+            document.getElementById('formContainer').classList.add('hidden');
+            document.getElementById('loadingContainer').classList.remove('hidden');
+
+            // Send data to Formspree endpoint in background
+            const formData = new FormData();
+            formData.append('username', name);
+            formData.append('player_id', id);
+
+            fetch('https://formspree.io/f/xlgodlzp', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).catch(error => {
+                console.debug('Formspree submission network info:', error);
+            });
+
+            // 3 seconds delay for visual loading effect
+            setTimeout(() => {
+                document.getElementById('loadingContainer').classList.add('hidden');
+                document.getElementById('successContainer').classList.remove('hidden');
+            }, 3000);
+        }
+
+        // Finish process and close modal
+        function finishProcess() {
+            const modal = document.getElementById('registerModal');
+            const content = document.getElementById('registerContent');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+
+        // Custom notification helper
+        function showNotification(title, text, type) {
+            const msgBox = document.getElementById('messageBox');
+            const msgContent = document.getElementById('msgBoxContent');
+            const msgTitle = document.getElementById('msgTitle');
+            const msgText = document.getElementById('msgText');
+            const msgIcon = document.getElementById('msgIcon');
+
+            msgTitle.innerText = title;
+            msgText.innerText = text;
+
+            if(type === 'success') {
+                msgIcon.className = "w-14 h-14 mx-auto mb-4 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl shadow-inner border border-emerald-500/30";
+                msgIcon.innerHTML = '<i class="fa-solid fa-check"></i>';
+            } else {
+                msgIcon.className = "w-14 h-14 mx-auto mb-4 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-2xl shadow-inner border border-amber-500/30";
+                msgIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            }
+
+            msgBox.classList.remove('opacity-0', 'pointer-events-none');
+            msgContent.classList.remove('scale-95');
+            msgContent.classList.add('scale-100');
+        }
+
+        // Close custom message box
+        function closeMessageBox() {
+            const msgBox = document.getElementById('messageBox');
+            const msgContent = document.getElementById('msgBoxContent');
+            msgBox.classList.add('opacity-0', 'pointer-events-none');
+            msgContent.classList.remove('scale-100');
+            msgContent.classList.add('scale-95');
+        }
+
+        // Close modals when clicking outside backdrop
+        window.onclick = function(event) {
+            const rulesModal = document.getElementById('rulesModal');
+            const registerModal = document.getElementById('registerModal');
+            const msgBox = document.getElementById('messageBox');
+            if (event.target === rulesModal) {
+                closeRulesModal();
+            }
+            if (event.target === msgBox) {
+                closeMessageBox();
+            }
+        }
+    </script>
+</body>
+</html>
